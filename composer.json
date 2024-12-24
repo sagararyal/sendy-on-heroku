@@ -1,0 +1,9 @@
+{
+	"require": {
+		"php": "^8.0",
+		"ext-curl": "*",
+		"ext-gettext": "*",
+		"ext-mysqli": "*",
+		"aws/aws-sdk-php": "^3.0"
+	}
+}

@@ -1,0 +1,59 @@
+{
+  "name": "Sendy on Heroku",
+  "description": "Deploy Sendy dynamically on Heroku.",
+  "buildpacks": [
+	{ "url": "heroku/php" }
+  ],
+  "addons": [
+	{
+	  "plan": "jawsdb:kitefin"
+	},
+	{
+	  "plan": "scheduler:standard"
+	}
+  ],
+  "env": {
+	"SENDY_LICENSE_CODE": {
+	  "description": "Your Sendy license code.",
+	  "required": true
+	},
+	"HEROKU_APP_NAME": {
+		"description": "The name of the Heroku App. Please make sure it is same as the one you set above. This is used to setup crons.",
+		"required": true
+	},
+	"APP_PATH": {
+	  "description": "Application URL. eg: sendy.example.com",
+	  "required": true
+	},
+	"S3_ACCESS_KEY_ID": {
+		"description": "AWS S3-compatible storage access key. Please only use S3 providers that allow public file access.",
+		"required": true
+	},
+	"S3_SECRET_ACCESS_KEY": {
+		"description": "AWS S3-compatible storage secret key.",
+		"required": true
+	},
+	"S3_REGION": {
+		"description": "The region for your S3-compatible storage. eg: eu-central-1. For r2 eg: weur, wnam etc.",
+		"required": true
+	},
+	"S3_BUCKET_NAME": {
+		"description": "AWS S3-compatible storage access key.",
+		"required": true
+	},
+	"S3_PROVIDER": {
+		"description": "Set your S3 compatible provider. Default is aws. For Cloudflare r2, set value as: r2",
+		"required": true,
+		"value":"aws"
+	},
+	"S3_ENDPOINT": {
+		"description": "The endpoint URL for AWS S3-compatible storage (e.g., Cloudflare R2). Defaults to `https://s3.amazonaws.com` if not set.",
+		"required": false,
+		"value":""
+	},
+	"S3_CDN_URL": {
+		"description": "If you have a Public URL or CDN URL please enter. Can be left empty for AWS S3. For r2, please enter your Public URL.",
+		"required": false
+	}
+  }
+}

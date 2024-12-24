@@ -1,0 +1,1 @@
+web: rm -rf sendy && bash deploy.sh && php -S 127.0.0.1:8000 -t sendy/
