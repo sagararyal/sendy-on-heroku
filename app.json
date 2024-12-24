@@ -17,10 +17,6 @@
 	  "description": "Your Sendy license code.",
 	  "required": true
 	},
-	"HEROKU_APP_NAME": {
-		"description": "The name of the Heroku App. Please make sure it is same as the one you set above. This is used to setup crons.",
-		"required": true
-	},
 	"APP_PATH": {
 	  "description": "Application URL. eg: sendy.example.com",
 	  "required": true
