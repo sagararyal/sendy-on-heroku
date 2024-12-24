@@ -10,6 +10,10 @@ If you don't have a license key, you can get one [by clicking here](https://send
 
 <a href="https://sendy.co/?ref=pJY2W" title=""><img src="https://sendy.co/images/banners/728x90_var2.jpg" alt="Check out Sendy, a self hosted newsletter app that lets you send emails 100x cheaper via Amazon SES." width="728" height="90"/></a>
 
+### Looking for a Setup Guide?
+- Check this [Youtube Video](https://youtu.be/7r15Lemb86A) for step by step guide on Heroku deployment with Cloudflare R2.
+- Check [Sendy documentation](https://sendy.co/get-started#step5) for other issue, including AWS SES setup.
+
 ## Features
 - Support S3-compatible storage for file uploads using the AWS SDK. I personally use Cloudflare R2 for my projects.
 - Automatic deployment of the latest version of Sendy.
@@ -51,3 +55,5 @@ Contributions are welcome! To extend features or suggest changes, open a pull re
 You can run `heroku local -f Procfile.local` to deploy this app locally. Ensure you have php, composer, and heroku-cli, pre-installed.
 
 PS.The links in this repository are affiliate links, which help maintain this project at no additional cost to you. If you’d like to support my work, consider making a [donation to Plant-for-the-Planet Foundation](https://github.com/sponsors/Plant-for-the-Planet-org), where I work.
+
+ChatGPT has generated some parts of code for this repo.
