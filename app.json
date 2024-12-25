@@ -26,7 +26,7 @@
 		"required": true
 	},
 	"S3_SECRET_ACCESS_KEY": {
-		"description": "AWS S3-compatible storage secret key.",
+		"description": "AWS S3-compatible storage secret access key.",
 		"required": true
 	},
 	"S3_REGION": {
@@ -34,7 +34,7 @@
 		"required": true
 	},
 	"S3_BUCKET_NAME": {
-		"description": "AWS S3-compatible storage access key.",
+		"description": "AWS S3-compatible storage bucket name.",
 		"required": true
 	},
 	"S3_PROVIDER": {
