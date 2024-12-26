@@ -98,37 +98,37 @@ if (in_array($extension, $allowed)) {
 		
 		// Get the CKEditor function number and other parameters
 		$funcNum = (int)$_GET['CKEditorFuncNum'];
-		$CKEditor = $_GET['CKEditor'];
-		$langCode = $_GET['langCode'];
+		// $CKEditor = $_GET['CKEditor'];
+		// $langCode = $_GET['langCode'];
 
-		// Get custom domain and app settings from database
-		$q = 'SELECT custom_domain, custom_domain_protocol, custom_domain_enabled FROM apps WHERE id = ' . $app;
-		$r = mysqli_query($mysqli, $q);
-		if (!$r) {
-			error_log("Database query failed: " . mysqli_error($mysqli));
-			echo json_encode([
-				'status' => 'error',
-				'message' => 'Failed to retrieve app settings from the database.',
-			]);
-			exit;
-		}
-
-		if (mysqli_num_rows($r) > 0) {
-			while ($row = mysqli_fetch_array($r)) {
-				$custom_domain = $row['custom_domain'];
-				$custom_domain_protocol = $row['custom_domain_protocol'];
-				$custom_domain_enabled = $row['custom_domain_enabled'];
-				if ($custom_domain != '' && $custom_domain_enabled) {
-					$parse = parse_url(APP_PATH);
-					$domain = $parse['host'];
-					$protocol = $parse['scheme'];
-					$app_path = str_replace($domain, $custom_domain, APP_PATH);
-					$app_path = str_replace($protocol, $custom_domain_protocol, $app_path);
-				} else {
-					$app_path = APP_PATH;
-				}
-			}
-		}
+// 		// Get custom domain and app settings from database
+// 		$q = 'SELECT custom_domain, custom_domain_protocol, custom_domain_enabled FROM apps WHERE id = ' . $app;
+// 		$r = mysqli_query($mysqli, $q);
+// 		if (!$r) {
+// 			error_log("Database query failed: " . mysqli_error($mysqli));
+// 			echo json_encode([
+// 				'status' => 'error',
+// 				'message' => 'Failed to retrieve app settings from the database.',
+// 			]);
+// 			exit;
+// 		}
+// 
+// 		if (mysqli_num_rows($r) > 0) {
+// 			while ($row = mysqli_fetch_array($r)) {
+// 				$custom_domain = $row['custom_domain'];
+// 				$custom_domain_protocol = $row['custom_domain_protocol'];
+// 				$custom_domain_enabled = $row['custom_domain_enabled'];
+// 				if ($custom_domain != '' && $custom_domain_enabled) {
+// 					$parse = parse_url(APP_PATH);
+// 					$domain = $parse['host'];
+// 					$protocol = $parse['scheme'];
+// 					$app_path = str_replace($domain, $custom_domain, APP_PATH);
+// 					$app_path = str_replace($protocol, $custom_domain_protocol, $app_path);
+// 				} else {
+// 					$app_path = APP_PATH;
+// 				}
+// 			}
+// 		}
 
 		// Return file URL to CKEditor
 		echo "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction($funcNum, '" . htmlspecialchars($fileUrl, ENT_QUOTES) . "', '');</script>";
