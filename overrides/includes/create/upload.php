@@ -63,7 +63,7 @@ if (in_array($extension, $allowed)) {
 	]);
 
 	// Generate a unique filename for the S3 bucket
-	$s3Filename = $time . '_' . $file_name;
+	$s3Filename  = $time . '.' . $extension;
 	$uploadsPath = 'uploads/';
 
 	try {
