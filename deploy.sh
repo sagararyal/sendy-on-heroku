@@ -4,6 +4,11 @@ set -e
 SENDY_URL="https://sendy.co/download/?license=${SENDY_LICENSE_CODE}"
 SENDY_DIR="sendy"
 
+if [ -n "$SENDY_VERSION" ] || [ -n "$SENDY_ARCHIVE_URL" ]; then
+  # https://example.com/sendy/?version=6.1.2
+  SENDY_URL="${SENDY_ARCHIVE_URL}?version=${SENDY_VERSION}"
+fi
+
 echo "Downloading Sendy..."
 curl -L -o sendy.zip "$SENDY_URL"
 
@@ -16,6 +21,7 @@ fi
 echo "Extracting Sendy..."
 unzip -q sendy.zip || { echo "Error: Failed to extract Sendy."; exit 1; }
 rm sendy.zip
+echo "Removed sendy.zip"
 
 echo "Overriding files..."
 # Move overrides into the correct Sendy folder
