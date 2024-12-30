@@ -23,6 +23,9 @@ unzip -q sendy.zip || { echo "Error: Failed to extract Sendy."; exit 1; }
 rm sendy.zip
 echo "Removed sendy.zip"
 
+echo "deleteting en_US locale files from overrides"
+rm -rf overrides/locale/en_US/*
+
 echo "Overriding files..."
 # Move overrides into the correct Sendy folder
 if [ -d "$SENDY_DIR" ]; then
