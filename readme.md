@@ -48,6 +48,10 @@ Heroku will require the following environment variables during deployment. I opt
 | `APP_PATH`             | The public-facing URL of your Heroku app (e.g., `https://your-app.herokuapp.com`). |
 ---
 
+To run a custom version, provide a publicly accessible URL to a file named sendy.zip, for example: `https://example.com/sendy.zip`.
+
+To enable this, add the following environment variables to your Heroku environment configuration: `SENDY_ARCHIVE_URL` & `SENDY_VERSION`
+ 
 ## Contributions & Disclaimer
 
 Contributions are welcome! To extend features or suggest changes, open a pull request. Overrides to the existing `sendy/` directory should be handled using a deploy script or added to the `overrides` folder.
