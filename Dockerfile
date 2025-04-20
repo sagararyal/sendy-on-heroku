@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
 	unzip \
 	curl \
 	gettext \
-	&& docker-php-ext-install mysqli gettext \
-	&& docker-php-ext-enable mysqli gettext \
+	&& docker-php-ext-install mysqli gettext calendar \
+	&& docker-php-ext-enable mysqli gettext calendar \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
