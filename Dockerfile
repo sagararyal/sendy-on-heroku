@@ -17,8 +17,11 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 
 # Set PHP configuration
-COPY overrides/.user.ini /usr/local/etc/php/conf.d/sendy.ini
-RUN mkdir -p /app/tmp && chmod 777 /app/tmp
+RUN echo "upload_tmp_dir=/app/tmp" >> /usr/local/etc/php/conf.d/sendy.ini \
+    && echo "upload_max_filesize=10M" >> /usr/local/etc/php/conf.d/sendy.ini \
+    && echo "post_max_size=10M" >> /usr/local/etc/php/conf.d/sendy.ini \
+    && echo "max_execution_time=300" >> /usr/local/etc/php/conf.d/sendy.ini \
+    && mkdir -p /app/tmp && chmod 777 /app/tmp
 
 # Install Composer globally
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
