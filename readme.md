@@ -1,4 +1,4 @@
-# Sendy on Heroku
+# Sendy on Heroku / Docker / Coolify
 
 Deploy [Sendy](https://sendy.co/?ref=pJY2W) – the self-hosted email newsletter application on Heroku with minimal setup. Sendy lets you send trackable emails via Amazon Simple Email Service (SES), enabling you to send bulk emails. 
 
