@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  sendy:
+    build: .
+    container_name: sendy-app
+    restart: unless-stopped
+    expose:
+      - "80"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - SENDY_LICENSE_CODE=${SENDY_LICENSE_CODE}
+      - SENDY_ARCHIVE_URL=${SENDY_ARCHIVE_URL:-}
+      - SENDY_VERSION=${SENDY_VERSION:-}
+      - APP_PATH=${APP_PATH:-${SERVICE_URL_SENDY}}
+      - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID:-}
+      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY:-}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME:-}
+      - S3_REGION=${S3_REGION:-}
+      - S3_PROVIDER=${S3_PROVIDER:-}
+      - S3_CDN_URL=${S3_CDN_URL:-}
+      - S3_ENDPOINT=${S3_ENDPOINT:-}
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 120s
