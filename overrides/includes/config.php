@@ -1,4 +1,26 @@
 <?php
+// Full override of stock Sendy's includes/config.php — not a v7 fork.
+// Stock Sendy ships config.php with hardcoded DB / S3 credentials; this
+// version reads everything from environment variables so it can run on
+// Heroku, Coolify, Docker, etc. without per-deploy file edits.
+//
+// All defines below are required by Sendy at boot. Do not remove them.
+
+// [PROXY] Honor reverse proxy forwarded headers (Caddy, Heroku router,
+// Cloudflare, etc.) so Sendy emits https:// URLs and license/domain
+// checks see the real client-facing host. Only safe when every request
+// is guaranteed to come through a trusted reverse proxy — do not enable
+// if the PHP server is directly internet-reachable, as a client could
+// then spoof these headers.
+if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+	$_SERVER['HTTPS'] = 'on';
+	$_SERVER['SERVER_PORT'] = 443;
+	$_SERVER['REQUEST_SCHEME'] = 'https';
+}
+if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+	$_SERVER['HTTP_HOST'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+	$_SERVER['SERVER_NAME'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
+}
 
 // Define the application path
 if (getenv('APP_PATH')) {
