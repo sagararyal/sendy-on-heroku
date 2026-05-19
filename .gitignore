@@ -5,3 +5,7 @@ vendor
 
 sendy.zip
 sendy
+archives
+
+# Local dev helpers (php -S router + R2 diagnostics)
+dev-*.php
