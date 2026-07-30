@@ -6,6 +6,9 @@
 	// we preserve the original structure and only:
 	//   - comment out lines replaced by S3 logic (prefix `// [S3] stock:`)
 	//   - mark our additions with `// [S3]`
+	//
+	// [OVERRIDE-STRATEGY: marker-diff] — stock structure is preserved, so when
+	// the upgrade audit reports stock changed here, port the upstream change.
 
 	include('../functions.php');
 	include('../login/auth.php');

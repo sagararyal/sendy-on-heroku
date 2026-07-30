@@ -5,6 +5,11 @@
 // Heroku, Coolify, Docker, etc. without per-deploy file edits.
 //
 // All defines below are required by Sendy at boot. Do not remove them.
+//
+// [OVERRIDE-STRATEGY: clobber] — this fully replaces stock config.php, so
+// changed stock lines are moot. The one risk the audit watches for: a new
+// Sendy release adding a define() that the rest of Sendy now needs at boot,
+// which this hardcoded list would be missing.
 
 // [PROXY] Honor reverse proxy forwarded headers (Caddy, Heroku router,
 // Cloudflare, etc.) so Sendy emits https:// URLs and license/domain
