@@ -1,7 +1,7 @@
 ## This Dockerfile can also be used to deploy Sendy to Railway
 
 # Use the PHP image with Apache
-FROM php:8.2-apache
+FROM php:8.3-apache
 
 # Install required dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
