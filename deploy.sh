@@ -19,7 +19,9 @@ if [ ! -f "sendy.zip" ]; then
 fi
 
 echo "Extracting Sendy..."
-unzip -q sendy.zip || { echo "Error: Failed to extract Sendy."; exit 1; }
+# -o: overwrite without asking. On a restarted container sendy/ already exists, unzip
+# prompted with no TTY and failed, so the container crash-looped (17 Nov 2026).
+unzip -oq sendy.zip || { echo "Error: Failed to extract Sendy."; exit 1; }
 rm sendy.zip
 echo "Removed sendy.zip"
 

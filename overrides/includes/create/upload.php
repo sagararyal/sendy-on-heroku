@@ -17,6 +17,7 @@
 
 	//Init
 	$app = isset($_GET['app']) && is_numeric($_GET['app']) ? mysqli_real_escape_string($mysqli, (int)$_GET['app']) : exit;
+	sendy_require_access(sendy_can_access_app($app));
 	$is_grapesjs_upload = isset($_FILES['files']) || (isset($_GET['response']) && $_GET['response']=='json');
 	$files_key = $is_grapesjs_upload ? 'files' : 'upload';
 	if(!isset($_FILES[$files_key])) exit;
@@ -84,8 +85,7 @@
 
 			$extension_explode = explode('.', $file_name);
 			$extension = strtolower($extension_explode[count($extension_explode)-1]);
-			$extension2 = count($extension_explode) > 1 ? strtolower($extension_explode[count($extension_explode)-2]) : '';
-			if($extension2=='php' || $file_name=='.htaccess') continue;
+			if(sendy_is_dangerous_filename($file_name)) continue;
 
 			$allowed = array("jpeg", "jpg", "gif", "png", "webp");
 			if(in_array($extension, $allowed) && sendy_upload_is_valid_image($file, $extension))
@@ -112,8 +112,7 @@
 		$file_name = $_FILES[$files_key]['name'];
 		$extension_explode = explode('.', $file_name);
 		$extension = $extension_explode[count($extension_explode)-1];
-		$extension2 = count($extension_explode) > 1 ? $extension_explode[count($extension_explode)-2] : '';
-		if($extension2=='php' || $file_name=='.htaccess') exit;
+		if(sendy_is_dangerous_filename($file_name)) exit;
 
 		//Check filetype
 		$allowed = array("jpeg", "jpg", "gif", "png");
