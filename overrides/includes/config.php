@@ -27,6 +27,35 @@ if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
 	$_SERVER['SERVER_NAME'] = $_SERVER['HTTP_X_FORWARDED_HOST'];
 }
 
+// [PROXY] Real client IP. Behind a reverse proxy, REMOTE_ADDR is the proxy's own address for
+// every request. Sendy 7.1.7+ rate-limits logins and password resets per IP (login_attempts), so
+// all users would share one bucket and a few wrong passwords could lock everyone out. Prefer
+// Cloudflare's CF-Connecting-IP, then the first X-Forwarded-For hop. Same trust rule as above:
+// only valid while the app is reachable only through the proxy.
+$__client_ip = '';
+if (!empty($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+	$__client_ip = trim($_SERVER['HTTP_CF_CONNECTING_IP']);
+} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+	$__client_ip = trim(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]);
+}
+if ($__client_ip !== '' && filter_var($__client_ip, FILTER_VALIDATE_IP)) {
+	$_SERVER['REMOTE_ADDR'] = $__client_ip;
+	putenv('REMOTE_ADDR=' . $__client_ip);
+}
+unset($__client_ip);
+
+// [LOGIN] Drop a stale logged_in cookie when a new password login is submitted. Stock
+// two-factor.php bounces away whenever a logged_in cookie exists, even an invalid one (revoked,
+// expired, or from before 7.1.7). 2FA users then loop /two-factor -> / -> /login and cannot log in
+// until they clear cookies. A fresh password login replaces the device token anyway: the OTP step
+// (or the non-2FA path, whose Set-Cookie comes later and wins) issues a new one.
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST'
+	&& substr($_SERVER['SCRIPT_NAME'] ?? '', -strlen('/includes/login/main.php')) === '/includes/login/main.php'
+	&& isset($_COOKIE['logged_in'])) {
+	setcookie('logged_in', '', time() - 3600, '/', getenv('COOKIE_DOMAIN') ?: '');
+	unset($_COOKIE['logged_in']);
+}
+
 // Define the application path
 if (getenv('APP_PATH')) {
 	define('APP_PATH', getenv('APP_PATH'));
